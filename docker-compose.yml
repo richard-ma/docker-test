@@ -1,0 +1,15 @@
+version: '3'
+services:
+    app:
+        build: ./app
+        ports:
+            - "5000:5000"
+    nginx:
+        image: "nginx"
+        volumes:
+            - ./web/nginx-conf:/etc/nginx/conf.d
+        ports:
+            - "80:80"
+        links:
+            - app
+        command: [nginx-debug, '-g', 'daemon off;']
